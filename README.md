@@ -2,9 +2,11 @@
 加油！算法学习之路
 ## 目录
 * [1.两数之和](#167)
+* [35. 搜索插入位置](#35)
 * [167. 两数之和 II - 输入有序数组](#167)
 * [215.数组中的第K个最大元素](#414)
 * [414. 第三大的数](#414)
+* [581. 最短无序连续子数组](#581)
 * [766. 托普利茨矩阵](#766)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
@@ -95,4 +97,89 @@ var thirdMax = function(nums) {
 };
 ```
 类同215.数组中的第K个最大元素
+
+#### <a id="581">581. 最短无序连续子数组(简单）</a>
+给定一个整数数组，你需要寻找一个连续的子数组，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+
+你找到的子数组应是最短的，请输出它的长度。
+```javascript
+var findUnsortedSubarray = function(nums) {
+    let item;
+    let [...array]=nums;//ES6，深拷贝，浅拷贝的话，array一变化，nums也变化了
+    let my_arr=[];
+    let arr=[];
+    for(let i=0;i<array.length;i++)
+        {
+            for(let j=i+1;j<array.length;j++)
+                {
+                    if(array[i]>array[j])
+                        {
+                            item=array[i];
+                            array[i]=array[j];
+                            array[j]=item;
+                        }
+                }
+        }
+    for(let h=0;h<array.length;h++)
+        {
+            if(array[h]==nums[h])
+                {
+                    my_arr.push(h);
+                }
+            else{
+                break;
+            }
+        }
+    for(let g=array.length-1;g>=0;g--)
+        {
+            if(array[g]==nums[g])
+                {
+                   arr.push(g);
+                }
+            else{
+              break;
+            }
+        }
+    if(nums.length-arr.length-my_arr.length<0)
+        {
+            return 0;
+        }
+    else{
+    return (nums.length-arr.length-my_arr.length);
+    }
+        
+};
+```
+先将其排序，再比较这两个数组两端哪些一样。过程较为复杂，等待改进。
+
+#### <a id="35">35. 搜索插入位置(简单)</a>
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+你可以假设数组中无重复元素。
+```javascript
+var searchInsert = function(nums, target) {
+    for(let i=0;i<nums.length;i++)
+        {
+            if(nums[i]==target)
+                return i;
+            else if(i==nums.length-1){
+                for(let j=0;j<nums.length;j++)
+                    {
+                        if(nums[0]>target)
+                            {
+                                return 0;
+                            }
+                        else if(nums[nums.length-1]<target)
+                            {
+                                return nums.length;
+                            }
+                        else if(target<nums[j+1]&&target>nums[j])
+                            {
+                                return j+1;
+                            }
+                    }
+            }
+        }
+};
+```
 
