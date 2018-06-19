@@ -228,4 +228,29 @@ var rotate = function(nums, k) {
   array.concat.apply(array,nums);
 ```
 这个里面运用了concat和apply的方法，apply将nums数组解析为一个个参数，array调用了concat方法，concat将array和nums合并为一个参数。
-[参考链接](https://blog.csdn.net/business122/article/details/8000676)
+<br>[apply相关知识参考链接](https://blog.csdn.net/business122/article/details/8000676)
+
+<br>(2)找到相关的关系。arr[i][j]=array[i+c*j]
+```javascript
+var matrixReshape = function(nums, r, c) {
+    let array=[];
+    let arr=new Array();
+    array=[].concat.apply([],nums); 
+    if(r*c==array.length)
+        {
+            for(let i=0;i<r;i++)
+                {
+                    arr[i]=new Array();
+                    for(let j=0;j<c;j++)
+                        {
+                           arr[i][j]=array[j+i*c];
+                        }
+                }
+            return arr;
+        }   
+    else{
+        return nums;
+    }
+};
+```
+<br>[二维数组定义相关参考链接](http://blog.sina.com.cn/s/blog_e084ba2b0102wk57.html)
