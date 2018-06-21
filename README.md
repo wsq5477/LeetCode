@@ -2,13 +2,14 @@
 加油！算法学习之路
 ## 目录
 * [1.两数之和](#167)
+* [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
 * [167. 两数之和 II - 输入有序数组](#167)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
-* [581. 最短无序连续子数组](#581)
+* [581. 最短无序连续子数组（待改）](#581)
 * [766. 托普利茨矩阵](#766)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
@@ -254,3 +255,36 @@ var matrixReshape = function(nums, r, c) {
 };
 ```
 <br>[二维数组定义相关参考链接](http://blog.sina.com.cn/s/blog_e084ba2b0102wk57.html)
+
+#### <a id="27">27. 移除元素</a>
+```javascript
+var removeElement = function(nums, val) {
+     for(let i=0;i<nums.length;i++)
+         {
+             if(nums[i]==val)
+                 {
+                      nums.splice(i,1);
+                      i--;//因为nums被移除了一位，所以i要减一
+                 }
+         }
+};
+```
+学会用原型写程序，这样可以在项目中可以减少很多代码量
+```javascript
+var removeElement = function(nums, val) {
+     nums.remove(val);
+};
+
+Array.prototype.remove=function(val){
+    let arr=[];
+    for(let i=0;i<this.length;i++)
+        {
+          if(this[i]==val)
+              arr.push(i);
+        }
+    for(let i=0;i<arr.length;i++)
+    {
+        this.splice(arr[i]-i,1);//注意每删掉一个之后的变化
+    }
+}
+```
