@@ -5,6 +5,7 @@
 * [26. 删除排序数组中的重复项](#26)
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
+* [66. 加一](#66)
 * [167. 两数之和 II - 输入有序数组](#167)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
@@ -350,5 +351,45 @@ var largeGroupPositions = function(S) {
                 }
         }
     return arr;
+};
+```
+#### <a id="66">66. 加一</a>
+给定一个非负整数组成的非空数组，在该数的基础上加一，返回一个新的数组。
+
+最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
+
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+<br>我开始是这样做的
+```javascript
+var plusOne = function(digits) {
+    let num=digits.join("");
+    let arr=[];
+    num=Number(num);
+    num=num+1;
+    let string=num.toString();
+    for(let i=0;i<string.length;i++)
+        {
+                    arr.unshift(num%10);
+                    num=Math.floor(num/10);
+        }
+    return arr;
+};
+```
+将其转换成数字，加一后再利用除法转换成数组，后发现使用这种方法计算超过其范围的数字就会出错，后改变方法
+```javascript
+var plusOne = function(digits) {
+    for(let i=digits.length-1;i>=0;i--)
+        {
+             if(digits[i]!=9)//判断是不是9，不是就直接加一后返回该数组
+                 {
+                     digits[i]++;
+                     return digits;
+                 }
+            else{
+                digits[i]=0;
+            }
+        }
+    digits.unshift(1);//如果全部为0，则循环完成，继续执行接下来的打码，利用unshift将1放在数组最前面，返回该数组
+    return digits;
 };
 ```
