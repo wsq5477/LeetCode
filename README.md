@@ -353,6 +353,20 @@ var largeGroupPositions = function(S) {
     return arr;
 };
 ```
+这种方法的用时达到300多ms，较为繁琐，改进方法
+```javascript
+    var largeGroupPositions = function(S) {
+    let outPut=[]
+    let reg=/([a-z])\1\1+/g//\1代表与第一个小括号内匹配的字符相同
+    let out=reg.exec(S)//exec返回的是一个数组，所以下方要用out[0]，通过反复调用exec来历遍字符串中所有的匹配文本
+    while(out)
+        {
+            outPut.push([out.index,out.index+out[0].length-1])
+            out=reg.exec(S)
+        }
+    return outPut
+};
+```
 #### <a id="66">66. 加一</a>
 给定一个非负整数组成的非空数组，在该数的基础上加一，返回一个新的数组。
 
