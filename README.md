@@ -206,6 +206,14 @@ var rotate = function(nums, k) {
 };
 ```
 比较简单，主要是通过nums数组的第一个元素和其他的依次进行交换，总共进行k次。
+<br>改进方法：
+```javascript
+var rotate = function(nums, k) {
+    let len=nums.length;
+    let arr=nums.splice(len-k,k);
+    nums.unshift(...ary)//...将数组转化成用逗号隔开的参数，如[1,2,3,4,5,6,7] 和 k = 3，结果为[5,6,7,1,2,3,4]，不加...，结果是[[5,6,7],1,2,3,4]
+    };
+```
 
 #### <a id="566">566. 重塑矩阵（简单）</a>
 在MATLAB中，有一个非常有用的函数 reshape，它可以将一个矩阵重塑为另一个大小不同的新矩阵，但保留其原始数据。
