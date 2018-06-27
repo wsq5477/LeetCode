@@ -11,7 +11,7 @@
 * [215.数组中的第K个最大元素](#414)
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
-* [581. 最短无序连续子数组（待改）](#581)
+* [581. 最短无序连续子数组](#581)
 * [766. 托普利茨矩阵](#766)
 * [830. 较大分组的位置](#830)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
@@ -157,7 +157,27 @@ var findUnsortedSubarray = function(nums) {
 };
 ```
 先将其排序，再比较这两个数组两端哪些一样。过程较为复杂，等待改进。
-
+<br>改进方法：
+```javascript
+var findUnsortedSubarray = function(nums) {
+     let n=nums.length;
+    let min=nums[n-1];
+    let max=nums[0];
+    let start=-1;
+    let end=-2;
+    for(let i=0;i<n;i++)
+        {
+           max=Math.max(nums[i],max)
+           min=Math.min(nums[n-i-1],min)
+           if(nums[i]<max)
+               end=i
+            if(nums[n-i-1]>min)
+                start=n-i-1
+           
+        }
+    return end-start+1
+};
+```
 #### <a id="35">35. 搜索插入位置(简单)</a>
 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 
