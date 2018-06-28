@@ -6,6 +6,8 @@
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
 * [66. 加一](#66)
+* [118. 杨辉三角](#119)
+* [119. 杨辉三角 II](#119)
 * [167. 两数之和 II - 输入有序数组](#167)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
@@ -463,3 +465,26 @@ var plusOne = function(digits) {
     return digits;
 };
 ```
+#### <a id="119">119. 杨辉三角 II</a>
+给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。在杨辉三角中，每个数是它左上方和右上方的数的和。
+```javascript
+var getRow = function(rowIndex) {
+    let array=[1,1]
+    let arr=[1,1]
+    if(rowIndex==0)
+        return [1]
+    else{
+    for(let i=1;i<rowIndex;i++)
+        {
+            for(let j=array.length-1;j>0;j--)
+                {
+                       arr.splice(1,0,array[j]+array[j-1])//历遍，使上一行的数字相加等于这一行
+                }
+            array=arr;
+            arr=[1,1];
+        }
+    return array;
+    }
+};
+```
+类同118.杨辉三角
