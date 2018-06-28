@@ -35,6 +35,23 @@ var twoSum = function(numbers, target) {
         }
 };
 ```
+改进方法：
+```javascript
+var twoSum = function(nums, target) {
+   let hash={};
+   let pair,num;
+   for(let i=0;i<nums.length;i++)
+       {
+          num=nums[i];
+           pair=target-num;
+           if(hash.hasOwnProperty(pair))//判断hash对象中是否有pair属性
+               {
+                   return [hash[pair],i]
+               }
+           hash[num]=i;
+       }
+};
+```
 类同1.两数之和
 
 #### <a id="766">766. 托普利茨矩阵(简单）</a>
@@ -100,6 +117,17 @@ var thirdMax = function(nums) {
     else
         return array[0];
     
+};
+```
+改进方法：
+```javascript
+var findKthLargest = function(nums, k) {
+    function sortNums(a,b)
+    {
+        return b-a;//利用sort方法，sort内部参数必须是函数，b-a表示从大到小排序，当b-a大于0时交换顺序，以此实现排序
+    }
+    nums.sort(sortNums)
+    return nums[k-1];
 };
 ```
 类同215.数组中的第K个最大元素
