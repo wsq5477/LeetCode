@@ -14,6 +14,7 @@
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
+* [665. 非递减数列](#665)
 * [766. 托普利茨矩阵](#766)
 * [830. 较大分组的位置](#830)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
@@ -489,3 +490,42 @@ var getRow = function(rowIndex) {
 };
 ```
 类同118.杨辉三角
+
+#### <a id="665">665. 非递减数列</a>
+给定一个长度为 n 的整数数组，你的任务是判断在最多改变 1 个元素的情况下，该数组能否变成一个非递减数列。
+
+我们是这样定义一个非递减数列的： 对于数组中所有的 i (1 <= i < n)，满足 array[i] <= array[i + 1]。
+```javascript
+var checkPossibility = function(nums) {
+    let len=nums.length;
+    if(nums[0]>nums[1])
+        {
+            nums[0]=nums[1];
+        }
+    else if(nums[len-1]<nums[len-2])
+        {
+            nums[len-1]= nums[len-2];
+        }
+    else{
+       let i=1;
+       while(nums[i]<=nums[i+1])
+           i++;
+        if(nums[i]>nums[i+2])
+            nums[i]=nums[i+1];
+        else
+          nums[i+1]=nums[i];
+    }
+    console.log(nums);
+    let [...array]=nums;
+    array.sort(function(a,b)
+              {
+        return a-b;
+    })
+    for(let j=0;j<len;j++)
+        {
+            if(array[j]!=nums[j])
+                return false;
+        }
+    return true;
+}//分为两头和中间的无序进行计算，同时又将中间的无序分为两种进行计算
+```
