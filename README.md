@@ -529,3 +529,30 @@ var checkPossibility = function(nums) {
     return true;
 }//分为两头和中间的无序进行计算，同时又将中间的无序分为两种进行计算
 ```
+改进方法：
+```javascript
+var checkPossibility = function(nums) {
+    let count=0;
+    if(nums[0]>nums[1])
+        {
+            nums[0]=nums[1];
+            count++;
+        }
+  for(let i=2;i<nums.length&&count<2;i++)
+      {
+          if(nums[i-1]>nums[i])
+              {
+                  if(nums[i]>nums[i-2])
+                      {
+                          nums[i-1]=nums[i-2];
+                      }
+                  else{
+                      nums[i]=nums[i-1];
+                  }
+                  count++;
+              }
+         
+      }
+     return count<2;        //利用count来判断为真还是为假，更简洁。
+}
+```
