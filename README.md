@@ -11,6 +11,7 @@
 * [167. 两数之和 II - 输入有序数组](#167)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
+* [289.移动零](#289)
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
@@ -556,3 +557,24 @@ var checkPossibility = function(nums) {
      return count<2;        //利用count来判断为真还是为假，更简洁。
 }
 ```
+#### <a id="283">283. 移动零</a>
+给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+```javascript
+var moveZeroes = function(nums) {
+    let count=0;
+    for(let i=0;i<nums.length;i++)
+        {
+            if(nums[i]==0)
+                {
+                    nums.splice(i,1);
+                    i--;
+                    count++;
+                }
+        }
+    for(let j=0;j<count;j++)
+        {
+            nums.push(0);
+        }
+};
+```
+如果是倒序进行计算，那么就会减少时间复杂度。
