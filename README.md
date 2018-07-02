@@ -11,6 +11,7 @@
 * [167. 两数之和 II - 输入有序数组](#167)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
+* [268. 缺失数字](#268)
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
@@ -578,3 +579,41 @@ var moveZeroes = function(nums) {
 };
 ```
 如果是倒序进行计算，那么就会减少时间复杂度。
+
+#### <a id="268">268. 缺失数字</a>
+给定一个包含 0, 1, 2, ..., n 中 n 个数的序列，找出 0 .. n 中没有出现在序列中的那个数。
+```javascript
+var missingNumber = function(nums) {
+    if(nums.length==1)
+        {
+            if(nums[0]==0)
+                return 1;
+        }
+   nums.sort(function(a,b)
+            {
+       return a-b;
+   })
+     if(nums[0]!=0)
+        return 0;
+   for(let i=0;i<nums.length-1;i++)
+       {
+           if(nums[i+1]!=(nums[i]+1))
+               {
+                   return nums[i]+1;
+               }
+       }
+    return nums[nums.length-1]+1;
+};//通过比较排序后的数组是否依次加一来判断
+```
+改进方法
+```javascript
+var missingNumber = function(nums) {
+    let len=nums.length;
+    let sum=(len+0)*(len+1)/2;
+    for(let i=0;i<nums.length;i++)
+        {
+            sum=sum-nums[i];
+        }
+    return sum;
+}//求出0-n的和，再与nums中的数相减就可以得出相应的结果
+```
