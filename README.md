@@ -633,7 +633,7 @@ var minCostClimbingStairs = function(cost) {
         {
             arr[i]=Math.min(arr[i-1]+cost[i-1],arr[i-2]+cost[i-2])
         }
-    return arr[cost.length];
+    return arr[cost.length];//动态规划，找到关键的状态方程：arr[i]=Math.min(arr[i-1]+cost[i-1],arr[i-2]+cost[i-2])，使arr里面存放的都是最小的答案
 };
-```//动态规划，找到关键的状态方程：arr[i]=Math.min(arr[i-1]+cost[i-1],arr[i-2]+cost[i-2])，使arr里面存放的都是最小的答案
+```
 [动态规划](https://blog.csdn.net/baidu_28312631/article/details/47418773)
