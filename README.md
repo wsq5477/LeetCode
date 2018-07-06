@@ -6,6 +6,7 @@
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
 * [66. 加一](#66)
+* [88. 合并两个有序数组](#88)
 * [118. 杨辉三角](#119)
 * [119. 杨辉三角 II](#119)
 * [167. 两数之和 II - 输入有序数组](#167)
@@ -637,3 +638,16 @@ var minCostClimbingStairs = function(cost) {
 };
 ```
 [动态规划](https://blog.csdn.net/baidu_28312631/article/details/47418773)
+
+#### <a id="88">88. 合并两个有序数组</a>
+给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
+```javascript
+var merge = function(nums1, m, nums2, n) {
+    nums1.splice(m,nums1.length-m);
+    nums2.splice(n,nums2.length-n);
+    nums1.push.apply(nums1,nums2);//利用apply将nums2分解为一个一个的参数，在调用push函数，添加到nums1后面
+    nums1.sort(function(a,b){
+return a-b;
+    })
+};
+```
