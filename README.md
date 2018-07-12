@@ -5,6 +5,7 @@
 * [26. 删除排序数组中的重复项](#26)
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
+* [53. 最大子序和](#53)
 * [66. 加一](#66)
 * [88. 合并两个有序数组](#88)
 * [118. 杨辉三角](#119)
@@ -649,5 +650,28 @@ var merge = function(nums1, m, nums2, n) {
     nums1.sort(function(a,b){
 return a-b;
     })
+};
+```
+#### <a id="53">53. 最大子序和</a>
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+```javascript
+var maxSubArray = function(nums) {
+    let sum=nums[0];
+    let maxNum=nums[0];
+    for(let i=1;i<nums.length;i++)
+        {
+            if(sum>0)
+                {
+                    sum=sum+nums[i];
+                }
+            else
+                {
+                    sum=nums[i];
+                }
+            if(maxNum<sum){
+                maxNum=sum;
+            }
+        }
+    return maxNum;
 };
 ```
