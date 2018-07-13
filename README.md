@@ -18,6 +18,7 @@
 * [414. 第三大的数](#414)
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
+* [628. 三个数的最大乘积](#628)
 * [665. 非递减数列](#665)
 * [746. 使用最小花费爬楼梯](#746)
 * [766. 托普利茨矩阵](#766)
@@ -675,3 +676,18 @@ var maxSubArray = function(nums) {
     return maxNum;
 };
 ```
+#### <a id="628">628. 三个数的最大乘积</a>
+给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+
+```javascript
+var maximumProduct = function(nums) {
+   nums.sort(function(a,b){
+       return b-a;
+   });
+   let len=nums.length;
+   let max_value1=nums[0]*nums[1]*nums[2];
+   let max_value2=nums[0]*nums[len-1]*nums[len-2];
+   return Math.max(max_value1,max_value2);
+};
+```
+这样写应该是对的，浏览器上检测正确，LeetCode检测不出来
