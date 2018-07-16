@@ -690,4 +690,4 @@ var maximumProduct = function(nums) {
    return Math.max(max_value1,max_value2);
 };
 ```
-这样写应该是对的，浏览器上检测正确，LeetCode检测不出来
+将sort用程序写出来会减少执行用时。
