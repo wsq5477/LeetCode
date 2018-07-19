@@ -19,6 +19,7 @@
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
 * [628. 三个数的最大乘积](#628)
+* [643. 子数组最大平均数 I](#643)
 * [665. 非递减数列](#665)
 * [746. 使用最小花费爬楼梯](#746)
 * [766. 托普利茨矩阵](#766)
@@ -718,3 +719,49 @@ var transpose = function(A) {
 };
 
 ```
+#### <a id="643">643. 子数组最大平均数 I</a>
+给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+```javascript
+var findMaxAverage = function(nums, k) {
+    let maxValue=0;
+    let average=-Infinity;
+    for(let i=0;i<nums.length;i++)
+    {
+        for(let j=i;j<k+i;j++)
+            {
+                maxValue+=nums[j];
+               
+            }
+        average=Math.max(maxValue/k,average);
+        maxValue=0;
+        if(i==(nums.length-k)){
+            return average;
+        }
+    }
+};
+```
+时间太长，改进
+```javascript
+var findMaxAverage = function(nums, k) {
+    if(nums.length==1)
+        return nums[0];
+    let curValue=0;
+    for(let i=0;i<k-1;i++)
+        {
+            curValue+=nums[i];
+        }
+    if(k==nums.length)
+        return (curValue+nums[k-1])/k;
+    let mathValue=-Infinity;
+    for(let i=k-1;i<nums.length;i++)
+        {
+            curValue+=nums[i];
+            if((i-k)>-1)
+                curValue-=nums[i-k]
+            
+            mathValue=Math.max(mathValue,curValue)
+        }
+    return mathValue/k;
+};
+```
+利用循环，先加后面的再减去前面的，使其在一个循环内完成，减少时间复杂度
