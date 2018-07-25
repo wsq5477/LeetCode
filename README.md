@@ -24,6 +24,7 @@
 * [746. 使用最小花费爬楼梯](#746)
 * [766. 托普利茨矩阵](#766)
 * [830. 较大分组的位置](#830)
+* [849. 到最近的人的最大距离](#849)
 * [867. 转置矩阵](#867)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
@@ -765,3 +766,42 @@ var findMaxAverage = function(nums, k) {
 };
 ```
 利用循环，先加后面的再减去前面的，使其在一个循环内完成，减少时间复杂度
+
+#### <a id="849">849. 到最近的人的最大距离</a>
+在一排座位（ seats）中，1 代表有人坐在座位上，0 代表座位上是空的。
+
+至少有一个空座位，且至少有一人坐在座位上。
+
+亚历克斯希望坐在一个能够使他与离他最近的人之间的距离达到最大化的座位上。
+
+返回他到离他最近的人的最大距离。
+```javascript
+var maxDistToClosest = function(seats) {
+    let max=0;
+    let d=0;
+    let n=0;
+    let left_value;
+    for(let i=0;i<seats.length;i++)
+        {
+             if(seats[i]==1)
+                 {
+                      d=Math.max(d,i-max)
+                      max=i;
+                      n++;
+                     console.log(i,n)
+                 }
+            if(n==1)
+                {
+                     left_value=max;
+                }
+        }
+    let right_value=seats.length-1-max;
+    let res=Math.max(left_value,d/2,right_value);
+    if(res==right_value)
+        return right_value;
+
+    if(res==left_value)
+        return left_value;
+    return Math.floor(d/2);
+};//通过比较前后以及中间的间隔计算
+```
