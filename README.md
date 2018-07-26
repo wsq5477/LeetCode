@@ -805,3 +805,33 @@ var maxDistToClosest = function(seats) {
     return Math.floor(d/2);
 };//通过比较前后以及中间的间隔计算
 ```
+改进方法：利用平均数简化算法
+```javascript
+var maxDistToClosest = function(seats) {
+    let index=[];
+    let len=seats.length;
+    let max=0;
+    let avg;
+    let min;
+    if(len==2)
+        return 1;
+    for(let i=0;i<len;i++)
+        {
+             if(seats[i]==1)
+                 index.push(i);
+        }
+    len=index.length;
+    for(let i=0;i<len-1;i++)
+        {
+            avg=parseInt((index[i]+index[i+1])/2);
+            min=Math.min(avg-index[i],index[i+1]-avg);
+            if(max<min)
+                max=min;
+        }
+    if(seats[0]==0&&max<index[0])
+        max=index[0];
+    if(seats[seats.length-1]==0&&max<seats.length-index[len-1]-1)
+        max=seats.length-index[len-1]-1
+    return max;
+};
+```
