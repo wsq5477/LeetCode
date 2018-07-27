@@ -16,6 +16,7 @@
 * [268. 缺失数字](#268)
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
+* [485. 最大连续1的个数](#485)
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
 * [628. 三个数的最大乘积](#628)
@@ -833,5 +834,28 @@ var maxDistToClosest = function(seats) {
     if(seats[seats.length-1]==0&&max<seats.length-index[len-1]-1)
         max=seats.length-index[len-1]-1
     return max;
+};
+```
+#### <a id="485">485. 最大连续1的个数</a>
+给定一个二进制数组， 计算其中最大连续1的个数。
+```javascript
+var findMaxConsecutiveOnes = function(nums) {
+    let n=0;
+    let array=[];
+    let min=0;
+    let res=0;
+    for(let i=0;i<nums.length;i++)
+     {
+         if(nums[i]==1)
+             {
+                 n++;
+                 res=Math.max(res,n);
+             }
+         else
+             {
+                 n=0;
+             }
+     }
+    return res;
 };
 ```
