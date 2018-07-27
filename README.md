@@ -841,7 +841,6 @@ var maxDistToClosest = function(seats) {
 ```javascript
 var findMaxConsecutiveOnes = function(nums) {
     let n=0;
-    let array=[];
     let min=0;
     let res=0;
     for(let i=0;i<nums.length;i++)
