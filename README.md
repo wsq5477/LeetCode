@@ -11,6 +11,7 @@
 * [118. 杨辉三角](#119)
 * [119. 杨辉三角 II](#119)
 * [167. 两数之和 II - 输入有序数组](#167)
+* [169. 求众数](#169)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
 * [268. 缺失数字](#268)
@@ -894,3 +895,27 @@ function deepSeach(grid,i,j)
 }
 //利用了深度优先遍历，找到顶点，往下遍历，并将已经搜索过的值变为0，避免重复搜索
 ```
+#### <a id="169">169. 求众数</a>
+给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+
+你可以假设数组是非空的，并且给定的数组总是存在众数。
+`javascript
+var majorityElement = function(nums) {
+  let hash={};
+  let n=1;
+  for(let i=0;i<nums.length;i++)
+      {
+          if(!hash[nums[i]])
+              {
+                  hash[nums[i]]=n;
+              }
+          else{
+                hash[nums[i]]++;
+          }
+          if(hash[nums[i]]>nums.length/2)
+              {
+                  return nums[i];
+              }
+      }
+};
+`
