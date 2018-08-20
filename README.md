@@ -27,6 +27,7 @@
 * [746. 使用最小花费爬楼梯](#746)
 * [766. 托普利茨矩阵](#766)
 * [830. 较大分组的位置](#830)
+* [840. 矩阵中的幻方](#840)
 * [849. 到最近的人的最大距离](#849)
 * [867. 转置矩阵](#867)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
@@ -918,4 +919,47 @@ var majorityElement = function(nums) {
               }
       }
 };
+```
+#### <a id="840">840. 矩阵中的幻方</a>
+3 x 3 的幻方是一个填充有从 1 到 9 的不同数字的 3 x 3 矩阵，其中每行，每列以及两条对角线上的各数之和都相等。
+
+给定一个由整数组成的 N × N 矩阵，其中有多少个 3 × 3 的 “幻方” 子矩阵？（每个子矩阵都是连续的）。
+```javascript
+var numMagicSquaresInside = function(grid) {
+    let n=0;
+    if(grid.length<3)
+        {
+            return 0;
+        }
+    for(let i=1;i<grid.length-1;i++)
+        {
+            for(let j=1;j<grid[i].length-1;)
+                {
+                   if(grid[i][j]==5&&isMagic(grid,j,i))//因为是1-9的幻方，所以中心元素一定是5.两边元素相加一定为10，由此进行判断
+                       {
+                           j+=2;
+                           n++;
+                       }
+                    else
+                        j++;
+                }
+        }
+    return n;
+};
+function isMagic(grid,j,i){
+        let num1 = grid[i-1][j-1];
+        let num2 = grid[i-1][j];
+        let num3 = grid[i][j-1];
+        let num4 = grid[i-1][j+1];
+        let num5 = grid[i][j+1];
+        let num6 = grid[i+1][j-1];
+        let num7 = grid[i+1][j];
+        let num8 = grid[i+1][j+1];
+        if (num1 != 0&&num2 != 0&&num3 != 0&&num4 != 0)
+            if(num1 != 10&&num2 != 10&&num3 != 10&&num4 != 10)
+                    if (10-num1==num8&&10-num2==num7&&10-num3==num5&&10-num4==num6)
+                        return true;
+        return false;
+
+}
 ```
