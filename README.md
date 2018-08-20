@@ -1015,3 +1015,23 @@ var dominantIndex = function(nums) {
         }
 };
 ```
+这里用了排序方法，还深拷贝了数组，比较复杂，改进，直接获取两个最大值和索引
+```javascript
+var dominantIndex = function(nums) {
+    let max1=max2=index=0;
+    for(let i=0;i<nums.length;i++)
+        {
+            if(nums[i]>max2)
+                {
+                    max2=Math.min(nums[i],max1)
+                    if(nums[i]>max1)
+                    {
+                        max1=nums[i];
+                        index=i;
+                    }
+                }
+            
+        }
+    return max1/max2>=2?index:-1;
+};
+```
