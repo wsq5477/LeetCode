@@ -23,6 +23,7 @@
 * [628. 三个数的最大乘积](#628)
 * [643. 子数组最大平均数 I](#643)
 * [665. 非递减数列](#665)
+* [674. 最长连续递增序列](#674)
 * [695. 岛屿的最大面积](#695)
 * [746. 使用最小花费爬楼梯](#746)
 * [766. 托普利茨矩阵](#766)
@@ -962,4 +963,31 @@ function isMagic(grid,j,i){
         return false;
 
 }
+```
+#### <a id="674">674. 最长连续递增序列</a>
+给定一个未经排序的整数数组，找到最长且连续的的递增序列。
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLengthOfLCIS = function(nums) {
+    let max=1;
+    let sum=1;
+    if(nums.length==0)
+        {
+            return 0;
+        }
+     for(let i=0;i<nums.length;i++)
+         {
+             if(nums[i+1]>nums[i])
+                 max++;
+             else
+                 {
+                     sum=Math.max(sum,max);
+                     max=1;
+                 }
+         }
+    return sum;
+};
 ```
