@@ -26,6 +26,7 @@
 * [674. 最长连续递增序列](#674)
 * [695. 岛屿的最大面积](#695)
 * [746. 使用最小花费爬楼梯](#746)
+* [747. 至少是其他数字两倍的最大数](#747)
 * [766. 托普利茨矩阵](#766)
 * [830. 较大分组的位置](#830)
 * [840. 矩阵中的幻方](#840)
@@ -989,5 +990,28 @@ var findLengthOfLCIS = function(nums) {
                  }
          }
     return sum;
+};
+```
+#### <a id="747">747. 至少是其他数字两倍的最大数</a>
+在一个给定的数组nums中，总是存在一个最大元素 。
+
+查找数组中的最大元素是否至少是数组中每个其他数字的两倍。
+
+如果是，则返回最大元素的索引，否则返回-1。
+```javascript
+var dominantIndex = function(nums) {
+    let [...array]=nums;//深拷贝
+    array.sort(function(a,b){
+        return b-a;
+    })
+    if(array[0]<(array[1]*2))
+        {
+            return -1;
+        }
+    for(let i=0;i<nums.length;i++)
+        {
+            if(nums[i]==array[0])
+                return i;
+        }
 };
 ```
