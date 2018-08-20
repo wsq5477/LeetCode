@@ -18,6 +18,7 @@
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
 * [485. 最大连续1的个数](#485)
+* [532. 数组中的K-diff数对](#532)
 * [566. 重塑矩阵](#566)
 * [581. 最短无序连续子数组](#581)
 * [628. 三个数的最大乘积](#628)
@@ -1034,4 +1035,78 @@ var dominantIndex = function(nums) {
         }
     return max1/max2>=2?index:-1;
 };
+```
+#### <a id="532">532. 数组中的K-diff数对</a>
+给定一个整数数组和一个整数 k, 你需要在数组里找到不同的 k-diff 数对。这里将 k-diff 数对定义为一个整数对 (i, j), 其中 i 和 j 都是数组中的数字，且两数之差的绝对值是 k.
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findPairs = function(nums, k) {
+    let array=[];
+    let my_arr=[];
+    if(nums.length==1)
+        return 0;
+    nums.sort(function(a,b){
+        return a-b;
+    })
+    for(let i=0;i<nums.length;i++)
+        {
+            for(let j=0;j<nums.length-i-1;j++)
+                {
+                    if(nums[nums.length-i-1]-nums[j]==k)
+                        {
+                            array.push([nums[nums.length-i-1],nums[j]])
+                        }
+                }
+        }
+    console.log(array)
+    let hash={}
+    for(let i=0;i<array.length;i++)
+        {
+            if(!hash[array[i]])
+                {
+                    hash[array[i]]=true;
+                    my_arr.push(array[i]);
+                }
+        }
+    return my_arr.length;
+};//通过先排序再比较数组中两数的差是不是等于k,再剔除相同的部分.得到解
+```
+runtime 将近1000ms,比较复杂,改进:
+```javascript
+var findPairs = function (nums, k) {
+  let hash={};
+    let n=0;
+    if(k<0)
+        return 0;
+   for(let i=0;i<nums.length;i++)
+       {
+           if(!hash[nums[i]])
+               hash[nums[i]]=1;
+           else
+               hash[nums[i]]++;
+       }
+    console.log(hash)
+    for(let i=0;i<nums.length;i++){
+        if(hash[nums[i]]<=0)
+            {
+                continue;      
+            }         
+        hash[nums[i]]--;
+        if(hash[nums[i]+k]>0)
+            {
+                hash[nums[i]]=0;
+                n++;
+            }
+        if(hash[nums[i]-k]>0)
+            {
+                hash[nums[i]]=0;
+                n++;
+            }
+    }
+    return n;
+};//利用对象的属性,判断是否存在数值加或减k后的值.以此进行判断
 ```
