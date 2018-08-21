@@ -2,6 +2,7 @@
 加油！算法学习之路
 ## 目录
 * [1.两数之和](#167)
+* [6. Z字形变换](#6)
 * [26. 删除排序数组中的重复项](#26)
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
@@ -1218,4 +1219,41 @@ var fairCandySwap = function(A, B) {
                 }
         }
 };//通过A,B之和的差/2，判断B减去这个差是否在A中存在相应的数字
+```
+#### <a id="6">6. Z字形变换</a>
+将字符串 "PAYPALISHIRING" 以Z字形排列成给定的行数：
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+之后从左往右，逐行读取字符："PAHNAPLSIIGYIR"
+```javascript
+var convert = function(s, numRows) {
+    if(numRows==1)
+        return s;
+    let array=s.split("");
+    let arr=[];
+    let k=0;
+    let n=0;
+    for(let i=0;i<numRows;i++)
+        {
+            arr.push(array[i]);
+             while(k<array.length&&n<array.length)
+                 {
+                    k+=(numRows-i-2)*2+2;
+                    if(k!=0)
+                        {
+                           arr.push(array[i+k+n]);
+                        }
+                    n+=(i-1)*2+2; 
+                    if(n!=0)
+                        {
+                            arr.push(array[i+n+k]);
+                        }               
+                 }
+            k=0;
+            n=0;
+        }
+    return arr.join("");
+};//主要是发现他们的规律，都是加上K后得到的值，再加上n得到的值
 ```
