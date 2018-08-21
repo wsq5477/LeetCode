@@ -1222,10 +1222,11 @@ var fairCandySwap = function(A, B) {
 ```
 #### <a id="6">6. Z字形变换</a>
 将字符串 "PAYPALISHIRING" 以Z字形排列成给定的行数：
-
+```
 P   A   H   N
 A P L S I I G
 Y   I   R
+```
 之后从左往右，逐行读取字符："PAHNAPLSIIGYIR"
 ```javascript
 var convert = function(s, numRows) {
