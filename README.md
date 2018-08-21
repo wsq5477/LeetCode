@@ -17,6 +17,7 @@
 * [268. 缺失数字](#268)
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
+* [448. 找到所有数组中消失的数字](#448)
 * [485. 最大连续1的个数](#485)
 * [532. 数组中的K-diff数对](#532)
 * [566. 重塑矩阵](#566)
@@ -26,6 +27,7 @@
 * [665. 非递减数列](#665)
 * [674. 最长连续递增序列](#674)
 * [695. 岛屿的最大面积](#695)
+* [724. 寻找数组的中心索引](#727)
 * [746. 使用最小花费爬楼梯](#746)
 * [747. 至少是其他数字两倍的最大数](#747)
 * [766. 托普利茨矩阵](#766)
@@ -33,6 +35,7 @@
 * [840. 矩阵中的幻方](#840)
 * [849. 到最近的人的最大距离](#849)
 * [867. 转置矩阵](#867)
+* [888. 公平的糖果交换](#888)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
 
@@ -1109,4 +1112,110 @@ var findPairs = function (nums, k) {
     }
     return n;
 };//利用对象的属性,判断是否存在数值加或减k后的值.以此进行判断
+```
+#### <a id="724">724. 寻找数组的中心索引</a>
+给定一个整数类型的数组 nums，请编写一个能够返回数组“中心索引”的方法。
+
+我们是这样定义数组中心索引的：数组中心索引的左侧所有元素相加的和等于右侧所有元素相加的和。
+
+如果数组不存在中心索引，那么我们应该返回 -1。如果数组有多个中心索引，那么我们应该返回最靠近左边的那一个。
+```javascript
+var pivotIndex = function(nums) {
+    let left=0;
+    let right=0;
+    for(let i=0;i<nums.length;i++)
+        {
+            for(let j=i+1;j<nums.length;j++)
+                {
+                    right+=nums[j];
+                }
+            if(right==left)
+                {
+                    return i;
+                }
+            left+=nums[i];
+            right=0;
+        }
+    return -1;
+};//通过循环求左边和右边的值是否相等
+```
+时间复杂度为700ms，改进：
+```javascript
+var pivotIndex = function(nums) {
+    let sum=0;
+    let left=0;
+    for(let i=0;i<nums.length;i++)
+        {
+            sum+=nums[i];
+        }
+    for(let i=0;i<nums.length;i++)
+        {
+            if(sum-nums[i]-left==left)
+                return i;
+            left+=nums[i]
+        }
+    return -1;
+};//利用和减去左边的数代替循环得到的右边的数，减少复杂度
+```
+#### <a id="448">448. 找到所有数组中消失的数字</a>
+给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
+
+找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+
+您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。
+```javascript
+var findDisappearedNumbers = function(nums) {
+    let hash={};
+    let n=1;
+    let array=[];
+    for(let i=0;i<nums.length;i++)
+        {
+            if(!hash[nums[i]])
+                hash[nums[i]]=1;
+        }
+    for(let i=0;i<nums.length;i++)
+        {
+            if(!hash[n])
+             {
+                 array.push(n);
+             }
+            n++;
+        }
+    return array;
+};//通过判断该对象的属性是否存在来找到消失的数字
+```
+#### <a id="888">888. 公平的糖果交换</a>
+爱丽丝和鲍勃有不同大小的糖果棒：A[i] 是爱丽丝拥有的第 i 块糖的大小，B[j] 是鲍勃拥有的第 j 块糖的大小。
+
+因为他们是朋友，所以他们想交换一个糖果棒，这样交换后，他们都有相同的糖果总量。（一个人拥有的糖果总量是他们拥有的糖果棒大小的总和。）
+
+返回一个整数数组 ans，其中 ans[0] 是爱丽丝必须交换的糖果棒的大小，ans[1] 是 Bob 必须交换的糖果棒的大小。
+
+如果有多个答案，你可以返回其中任何一个。保证答案存在。
+```javascript
+var fairCandySwap = function(A, B) {
+    let sum=0;
+    let total=0;
+    let hash={};
+    let array=[];
+    for(let i=0;i<A.length;i++)
+        {
+            sum+=A[i];
+            if(!hash[A[i]])
+                hash[A[i]]=1;
+        }
+    for(let i=0;i<B.length;i++)
+        {
+            total+=B[i];
+        }
+    let k=(total-sum)/2;
+    for(let i=0;i<B.length;i++)
+        {
+            if(hash[B[i]-k])
+                {
+                    array.push(B[i]-k,B[i]);
+                    return array;
+                }
+        }
+};//通过A,B之和的差/2，判断B减去这个差是否在A中存在相应的数字
 ```
