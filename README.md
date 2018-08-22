@@ -18,6 +18,7 @@
 * [268. 缺失数字](#268)
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
+* [442. 数组中重复的数据](#442)
 * [448. 找到所有数组中消失的数字](#448)
 * [485. 最大连续1的个数](#485)
 * [532. 数组中的K-diff数对](#532)
@@ -1257,4 +1258,52 @@ var convert = function(s, numRows) {
         }
     return arr.join("");
 };//主要是发现他们的规律，都是加上K后得到的值，再加上n得到的值
+```
+#### <a id="442">442. 数组中重复的数据</a>
+给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
+
+找到所有出现两次的元素。
+
+你可以不用到任何额外空间并在O(n)时间复杂度内解决这个问题吗？
+```javascript
+var findDuplicates = function(nums) {
+   let hash={};
+    let array=[];
+    for(let i=0;i<nums.length;i++){
+       if(!hash[nums[i]])
+           {
+               hash[nums[i]]=1;
+           }
+        else{
+            hash[nums[i]]++;
+        }
+        if(hash[nums[i]]>1)
+            array.push(nums[i]);
+    }
+    return array;
+};
+```
+由于题目说不要用到任何额外空间，所以改进了。。虽然不知道是不是没用额外空间，但好像更慢了hhh
+```javascript
+var findDuplicates = function(nums) {
+    let index;
+    let len=nums.length;
+    for(let i=0;i<nums.length;i++)
+    {
+        if(i<len)
+            {
+                index=Math.abs(nums[i]);
+                nums[index-1]*=-1;
+                if(nums[index-1]>0)
+                {
+                    nums.push(Math.abs(nums[i]))
+                }                
+            }
+        else{
+            nums.splice(0,len);
+            return nums;
+        }
+    }
+    return [];
+};//利用它只有两个和一个的区别，乘上-1来进行判断
 ```
