@@ -16,6 +16,7 @@
 * [169. 求众数](#169)
 * [189. 旋转数组](#189)
 * [215.数组中的第K个最大元素](#414)
+* [231. 2的幂](#231)
 * [268. 缺失数字](#268)
 * [283.移动零](#283)
 * [414. 第三大的数](#414)
@@ -27,6 +28,7 @@
 * [581. 最短无序连续子数组](#581)
 * [628. 三个数的最大乘积](#628)
 * [643. 子数组最大平均数 I](#643)
+* [653. 两数之和 IV - 输入 BST](#653)
 * [665. 非递减数列](#665)
 * [674. 最长连续递增序列](#674)
 * [695. 岛屿的最大面积](#695)
@@ -1483,4 +1485,58 @@ function position(arr,a)
         }
     return count;
 }
+```
+#### <a id="231">231. 2的幂</a>
+给定一个整数，编写一个函数来判断它是否是 2 的幂次方。
+```javascript
+var isPowerOfTwo = function(n) {
+    if(n<=0)
+        return false;
+    while(n!=1){
+            if(n%2)
+                {
+                    return false;
+                }
+            n=n/2
+        }
+    return true;
+};
+```
+改进:
+```javascript
+var isPowerOfTwo = function(n) {
+    return n>0&&(n&(n-1))==0;
+};
+```
+#### <a id="653">653. 两数之和 IV - 输入 BST</a>
+给定一个二叉搜索树和一个目标结果，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true.
+```javascript
+var findTarget = function(root, k) {
+    let arr=[];
+    let hash={};
+    serach(root,arr);
+    for(let i=0;i<arr.length;i++)
+        {
+            if(!hash[arr[i]])
+                hash[arr[i]]=1;
+            else{
+                hash[arr[i]]++;
+            }
+        }
+    for(let i=0;i<arr.length;i++)
+        {
+            hash[arr[i]]--;
+            if(hash[k-arr[i]])
+                return true;
+        }
+    return false;
+};
+function serach(root,array)
+{
+    if(!root)
+        return
+    array.push(root.val)
+    serach(root.right,array)
+    serach(root.left,array)
+}//将二叉树的数值提出来，再利用数组的老办法解决
 ```
