@@ -3,6 +3,7 @@
 ## 目录
 * [1.两数之和](#167)
 * [6. Z字形变换](#6)
+* [12. 整数转罗马数字](#12)
 * [26. 删除排序数组中的重复项](#26)
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
@@ -1306,4 +1307,180 @@ var findDuplicates = function(nums) {
     }
     return [];
 };//利用它只有两个和一个的区别，乘上-1来进行判断
+```
+#### <a id="12">12. 整数转罗马数字</a>
+罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
+```
+字符          数值
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+```
+例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
+
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
+```
+I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
+C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。
+```
+```javascript
+var intToRoman = function(num) {
+    let numM;
+    let numD;
+    let numC;
+    let d;
+    let array=[];
+    let n=500;
+    let rom=new Map([[1,"I"],[5,"V"],[10,"X"],[50,"L"],[100,"C"],[500,"D"],[1000,"M"]]);
+    while(1)
+        {
+        if(num/n>=1)
+          {
+              //判断是否为40,400这种情况
+              if(num/(n*2*4)>=1)
+                  {
+                      if(n==5)
+                          {
+                              array.push("X","L")
+                          }
+                      if(n==50)
+                          {
+                              array.push("C","D")
+                          }
+                      numM=4;
+                  }
+              //否则则计算1000,100,10的个数
+            else{  
+               numM=parseInt(num/n/2);
+               d=numM;
+               while(d>0)
+                  {
+                    array.push(rom.get(n*2));
+                    d--;
+                   }
+            }
+            //计算500,50,5的个数
+            numD=num-numM*n*2;
+              //当其为900,90,9这样的特殊情况时
+            if(numD/(n*2*(9/10))>=1)
+                {
+                    array.push(rom.get(n/5),rom.get(n*2))
+                    num=numD-n*2*(9/10);
+                }
+            else if(numD/n>=1)
+                {
+                    array.push(rom.get(n))
+                    num=numD-n;
+                }
+             else{
+                  num=numD;
+              }
+              //当n为5时则不除以10
+             if(n==5)
+                {
+                  n=n;
+                }
+             else{
+                  n=n/10
+              }
+        }
+    else{
+        if(n==5)
+            {
+                if(num==4)
+                    {
+                        array.push("I","V");
+                        return array.join("");
+                    }
+                else{
+                    while(num/1>0)
+                        {
+                            array.push("I");
+                            num--;
+                        }
+                    return array.join("");
+                }
+            }
+          n=n/10;
+         }
+     }
+};//由于我想的是在别的情况下,而不是这种纯粹的做题,可能有超过3000的时候,所以用了这种解法
+```
+针对本题
+```javascript
+var intToRoman = function(num) {
+   let arr=[1000,900,500,400,100,90,50,40,10,9,5,4,1]
+   let a=num;
+    let add;
+    let temp=[];
+    let str=""
+   while(a!=0)
+       {
+           add=position(arr,a);
+           temp.push(add);
+           a=a-add;
+       }
+    for(let i=0;i<temp.length;i++)
+        {
+            if (temp[i]==1000) {
+      str = str +  'M'
+    }
+    else if (temp[i]==900) {
+      str = str +  'CM'  
+    }
+    else if (temp[i]==500) {
+      str = str +  'D'
+    }
+    else if (temp[i]==400) {
+      str = str +  'CD'
+    }
+    else if (temp[i]==100) {
+      str = str +  'C'
+    }
+    else if (temp[i]==90) {
+      str = str +  'XC'
+    }
+    else if (temp[i]==50) {
+      str = str +  'L'
+    }
+    else if (temp[i]==40) {
+      str = str +  'XL'
+    }
+    else if (temp[i]==10) {
+      str = str +  'X'
+    }
+    else if (temp[i]==9) {
+      str = str +  'IX'
+    }
+    else if (temp[i]==5) {
+      str = str +  'V'
+    }
+    else if (temp[i]==4) {
+      str = str +  'IV'
+    }
+    else if (temp[i]==1) {
+      str = str +  'I'
+    }
+  }
+  return str
+};
+function position(arr,a)
+{
+    let count;
+    for(let i=0;i<arr.length;i++)
+        {
+            if(a-arr[i]>=0)
+                {
+                    count=arr[i];
+                    break;
+                }
+        }
+    return count;
+}
 ```
