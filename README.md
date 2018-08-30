@@ -4,6 +4,7 @@
 * [1.两数之和](#167)
 * [6. Z字形变换](#6)
 * [12. 整数转罗马数字](#12)
+* [17. 电话号码的字母组合](#17)
 * [26. 删除排序数组中的重复项](#26)
 * [27. 移除元素](#27)
 * [35. 搜索插入位置](#35)
@@ -1580,4 +1581,77 @@ return a-b;})
         }
     return nums[nums.length-1]
 };//先排序，再判断三个连续数字是否相等
+```
+#### <a id="17">17. 电话号码的字母组合</a>
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+```javascript
+var letterCombinations = function(digits) {
+    if(digits.length==0)
+        return [];
+    let letter=[{2:"abc"},{3:"def"},{4:"ghi"},{5:"jkl"},{6:"mno"},{7:"pqrs"},{8:"tuv"},{9:"wxyz"}]
+    let array=[];
+    let len=digits.length; 
+    let path=[];
+    let result=[];
+    for(let i=0;i<len;i++)
+        {
+            array.push(letter[digits[i]-2][digits[i]])//获取当前数字对应的字母组合成的数组
+        }
+   search(0,len,array,path,result);
+    return result;
+}
+function search(i,len,array,path,result)
+{
+   if(i>=len)
+       {
+            let arr=[];
+            for(let i=0;i<len;i++)
+            {
+                arr.push(array[i][path[i]])
+            }
+             result.push(arr.join(""));
+       }
+    else{
+        path[i]=0;
+        search(i+1,len,array,path,result);
+        path[i]=1;
+        search(i+1,len,array,path,result);
+        path[i]=2;
+        search(i+1,len,array,path,result);
+        if(array[i].length>3)
+        {
+            path[i]=3;
+            search(i+1,len,array,path,result);
+        }
+    }
+}   //利用回溯算法，设置path的值为0，1，2，3分别对应每个数字的每个字母,假如给定的值为23，search（0）时，path的值为[0,0],第二遍是，path的值为[0,1]依次下去
+```
+不采用回溯方式
+```javascript
+var letterCombinations = function(digits) {
+    let map = {
+        "2": ["a", "b", "c"],
+        "3": ["d", "e", "f"],
+        "4": ["g", "h", "i"],
+        "5": ["j", "k", "l"],
+        "6": ["m", "n", "o"],
+        "7": ["p", "q", "r", "s"],
+        "8": ["t", "u", "v"],
+        "9": ["w", "x", "y", "z"]
+    };
+    let ans=map[digits[0]]
+    digits=digits.substring(1)
+    digits.split("").forEach(function(digit){//先将第一个字母和后面一个字母进行组合，再由这个组合和后一个字母组合，以此类推
+        let arr=[];
+         map[digit].forEach(function(letter){
+             arr=arr.concat(ans.map(function(item){//map类似forEach
+                 return item+letter;
+             }))
+         })
+      ans=arr
+    })
+    return ans?ans:[];
+}  
 ```
