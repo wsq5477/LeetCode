@@ -43,6 +43,8 @@
 * [849. 到最近的人的最大距离](#849)
 * [867. 转置矩阵](#867)
 * [888. 公平的糖果交换](#888)
+* [973. 最接近原点的 K 个点](#973)
+* [976. 三角形的最大周长](#976)
 #### <a id="167">167. 两数之和 II - 输入有序数组（简单）</a>
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
 
@@ -1654,4 +1656,66 @@ var letterCombinations = function(digits) {
     })
     return ans?ans:[];
 }  
+```
+#### <a id="973">973. 最接近原点的 K 个点</a>
+我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。
+
+（这里，平面上两点之间的距离是欧几里德距离。）
+
+你可以按任何顺序返回答案。除了点坐标的顺序之外，答案确保是唯一的
+```javascript
+/**
+ * @param {number[][]} points
+ * @param {number} K
+ * @return {number[][]}
+ */
+var kClosest = function(points, K) {
+    let array=[];
+    let hash={};
+    let arr=[];
+    for(let i=0;i<points.length;i++)
+        {
+            array[i]=points[i][0]*points[i][0]+points[i][1]*points[i][1];
+            hash[array[i]]=points[i];
+        }  
+    array.sort(function(a,b)
+              {
+        return a-b;
+    });
+    array.splice(K,array.length-K);
+    for(let i=0;i<array.length;i++)
+        {
+            arr[i]=hash[array[i]];
+        };
+    return arr;
+};//利用对象的属性与值
+```
+#### <a id="976">976. 三角形的最大周长</a>
+给定由一些正数（代表长度）组成的数组 A，返回由其中三个长度组成的、面积不为零的三角形的最大周长。
+
+如果不能形成任何面积不为零的三角形，返回 0。
+```javascript
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+    A.sort(function(a,b)
+          {
+        return b-a;
+    })
+    if(A.length==3)
+        {
+            if(A[2]+A[1]>A[0])
+                 return A[2]+A[1]+A[0];
+            else
+                return 0;
+        }
+    for(let i=1;i<A.length;i++)
+        {
+            if(A[i]+A[i+1]>A[i-1])
+                return A[i]+A[i+1]+A[i-1];
+        }
+    return 0;
+};//只需要判断后两个是否大于前一个最大的即可
 ```
